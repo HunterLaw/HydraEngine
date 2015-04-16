@@ -1,0 +1,42 @@
+package src.UI;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Window extends JFrame{
+	
+	public Window(JPanel panel,String title)
+	{
+		setTitle(title);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		add(panel);
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);	
+	}
+	
+	public Window(JPanel panel,JPanel panel2,String title)
+	{
+		setTitle(title);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		add(panel);
+		add(panel2);
+		setResizable(false);
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);	
+		setLayout(null);
+	}
+	
+	public void centerFrame()
+	{
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - this.getWidth())/2);
+		int y = (int) ((dimension.getHeight()- this.getHeight())/2);
+		setLocation(x,y);
+	}
+}
