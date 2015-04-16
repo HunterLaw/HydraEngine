@@ -12,6 +12,9 @@ public class TexturedObject2D extends NonTexturedObject2D {
 	protected BufferedImage texture;
 	protected File file;
 	
+	/*
+	 * Constructors call NonTexturedObject2D's constructor
+	 */
 	public TexturedObject2D(int xs, int ys, Dimension sizes,boolean filled) {
 		super(xs, ys, sizes,filled);
 	}
@@ -19,7 +22,11 @@ public class TexturedObject2D extends NonTexturedObject2D {
 	public TexturedObject2D(int xs, int ys, int widths, int heights,boolean filled) {
 		super(xs, ys, widths,heights,filled);
 	}
-	
+	/*
+	 * loadBasicImage()
+	 * 
+	 * Just loads the image from the file into a BufferedImage
+	 */
 	public void loadBasicImage(File files)
 	{
 		file = files;
@@ -32,7 +39,11 @@ public class TexturedObject2D extends NonTexturedObject2D {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
+	 * loadTiledImage()
+	 * 
+	 * Loads the image and then grabs the subimage from the specified area given
+	 */
 	public void loadTiledImage(int x,int y,int width,int height,File file)
 	{
 		loadBasicImage(file);
@@ -41,7 +52,11 @@ public class TexturedObject2D extends NonTexturedObject2D {
 			texture = texture.getSubimage(x, y, width, height);
 		}
 	}
-	
+	/*
+	 * getImage()
+	 * 
+	 * returns the BufferedImage
+	 */
 	public BufferedImage getImage()
 	{
 		return texture;

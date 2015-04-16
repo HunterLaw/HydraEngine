@@ -14,6 +14,9 @@ public class VerticalScrollingBG
 	BufferedImage image;
 	BufferedImage bg;
 	
+	/*
+	 * Constructor constructs an image with the information you do or dont have
+	 */
 	public VerticalScrollingBG(BufferedImage images,int widths,int heights)
 	{
 		this(images,widths,heights,2,0,0);
@@ -43,7 +46,11 @@ public class VerticalScrollingBG
 		g.drawImage(bg,xoffsets,0,widths-xoffset,heights,null);
 		g.dispose();
 	}
-	
+	/*
+	 * update()
+	 * 
+	 * Updates the position of the scrolling background image
+	 */
 	public void update()
 	{
 		y+=movespeed;
@@ -52,27 +59,47 @@ public class VerticalScrollingBG
 			y = (-height/2)-yoffset;
 		}
 	}
-	
-	public int getY()
-	{
-		return y;
-	}
-	
+	/*
+	 * setY()
+	 * 
+	 * Sets the y coord
+	 */
 	public void setY(int ys)
 	{
 		y = ys;
 	}
-	
+	/*
+	 * getY()
+	 * 
+	 * returns the y coord that the image should be drawn at
+	 */
+	public int getY()
+	{
+		return y;
+	}
+	/*
+	 * getWidth()
+	 * 
+	 * returns the width of the VerticalScrollingBG
+	 */
 	public int getWidth()
 	{
 		return width;
 	}
-	
+	/*
+	 * getHeight()
+	 * 
+	 * returns the height of the VerticalScrollingBG
+	 */
 	public int getHeight()
 	{
 		return height;
 	}
-	
+	/*
+	 * getImage()
+	 * 
+	 * returns the image of the VerticalScrollingBG
+	 */
 	public BufferedImage getImage()
 	{
 		return image;

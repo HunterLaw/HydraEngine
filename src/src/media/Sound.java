@@ -18,7 +18,10 @@ public class Sound
 {
 	File file;
 	AudioClip clip;
-	static File loc = new File("src/media/song.wav");
+	static File loc;
+	/*
+	 * File must be in the .wav format to work correctly
+	 */
 	public Sound(File files)
 	{
 		file = files;
@@ -29,16 +32,29 @@ public class Sound
 			e.printStackTrace();
 		}
 	}
+	/*
+	 * playsound()
+	 * 
+	 * Plays the sound clip provided
+	 */
 	public void playSound()
 	{
 		clip.play();
 	}
-
+	/*
+	 * loopSound()
+	 * 
+	 * Contiously loops the sound file until you call stopSound()
+	 */
 	public void loopSound()
 	{
 		clip.loop();
 	}
-	
+	/*
+	 * stopSound()
+	 * 
+	 * Stops the sound
+	 */
 	public void stopSound()
 	{
 		clip.stop();

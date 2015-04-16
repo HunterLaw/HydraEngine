@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 
 public class Window extends JFrame{
 	
+	/*
+	 * Constructor sets the title, default close operation, sets resizable to false, adds the panel(s) specified, sets
+	 * the location to relative to nothing, and sets visible to true
+	 */
 	public Window(JPanel panel,String title)
 	{
 		setTitle(title);
@@ -31,7 +35,11 @@ public class Window extends JFrame{
 		setVisible(true);	
 		setLayout(null);
 	}
-	
+	/*
+	 * centerFrame()
+	 * 
+	 * Centers the frame to the middle of the screen
+	 */
 	public void centerFrame()
 	{
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
