@@ -3,96 +3,90 @@ package test;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
-import javax.swing.JApplet;
-
-import src.Direction;
 import src.UI.FPS;
+import src.UI.Minimap;
 import src.UI.Panel;
 import src.UI.Renderer2D;
+import src.UI.ScrollingMap;
 import src.UI.Window;
 import src.media.Sound;
+import src.movement.Direction;
+import src.objects.Object2D;
 
-public class Hydra_Main implements Runnable, ComponentListener
+public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 {
 	static Window window;
 	static Panel panel;
-	static Renderer2D renderer = new Renderer2D(640,480,BufferedImage.TYPE_INT_RGB);
+	static Renderer2D renderer = new Renderer2D(640*2,480*2,BufferedImage.TYPE_INT_RGB);
 	BufferedImage image;
 	static boolean running = false;
 	boolean fpsd = false;
+	boolean update = false;
+	boolean updateinit = false;
+	int updated = 0;
 	FPS fps = new FPS(60);
-	static Ball ball;
-	Direction lorr = Direction.right;
-	Direction uord = Direction.down;
+	static Character chars;
+	static Direction lorr = Direction.none;
+	static Direction uord = Direction.none;
 	File loc = new File("src/media/song.wav");
 	Sound sound = new Sound(loc);
 	boolean playmusic = false;
+	static File bgs = new File("src/media/TestScrolling.png");
+	static BufferedImage bg;
+	static Minimap mini;
+	static ScrollingMap map;
+	static final int minimapsize = 96;
+	static int xtimes = 0;
+	static int ytimes = 0;
+	
+	static ArrayList<Object2D> objects;
 	public static void main(String[] args)
 	{
 		GUI();
 	}
 	public static void GUI()
 	{
+		objects = new ArrayList<Object2D>();
+		map = new ScrollingMap(0,0,640*2,480*2,640,480);
+		map.loadBasicImage(bgs);
+		map.enable();
 		panel = new Panel(new Dimension(640,480));
 		window = new Window(panel,"Test");
+		window.addKeyListener(new Hydra_Main());
 		//window.addComponentListener(new Hydra_Main());
-		ball = new Ball(20,20,20,20,true);
-		ball.setColor(Color.red);
-		renderer.addObject(ball);
+		mini = new Minimap((640-minimapsize),(480-minimapsize),minimapsize,minimapsize);
+		mini.setBorder(1, 1, Color.green);
+		mini.enable();
+		chars = new Character((640/2)-10,(480/2)-10,20,20,true);
+		chars.setColor(Color.red);
+		chars.enable();
+		
+		
+		objects.add(chars);
+		renderer.setObjectArray(objects);
+		renderer.setMinimap(mini);
+		renderer.setBgObject(map, map.getWidth(), map.getHeight());
+//		renderer.setBgObject(bg,bg.getWidth(),bg.getHeight());
+		
 		running = true;
 		panel.setRunMethod(new Hydra_Main());
 	}
 	
 	public void update()
 	{
-		if(ball.getX()-20>panel.getWidth())
-			ball.setX(panel.getWidth()-21);
-		else if(ball.getX()+20 <0)
-			ball.setX(1);
-		if(ball.getY()-20>panel.getHeight())
-			ball.setY(panel.getHeight()-21);
-		else if(ball.getY()+20 <0)
-			ball.setY(1);
-		if(lorr == Direction.right)
-		{
-			ball.setX(ball.getX()+5);
-		}
-		else if(lorr == Direction.left)
-		{
-			ball.setX(ball.getX()-5);
-		}
-		
-		if(uord == Direction.up)
-		{
-			ball.setY(ball.getY()-5);
-		}
-		else if(uord == Direction.down)
-		{
-			ball.setY(ball.getY()+5);
-		}
-		
-		if(ball.getX()+ball.getWidth() > panel.getWidth()|| ball.getX() <0)
-		{
-			if(lorr == Direction.right)
-				lorr = Direction.left;
-			else if(lorr == Direction.left)
-				lorr = Direction.right;
-		}
-		
-		if(ball.getY()+ball.getHeight() > panel.getHeight() || ball.getY() <0)
-		{
-			if(uord == Direction.up)
-				uord = Direction.down;
-			else if(uord == Direction.down)
-				uord = Direction.up;
-		}
-		
+		map.setCharCenter(chars);
+		map.update(objects, lorr, uord);
+		map.setCharCenter(chars);
+		System.out.println(map.getCharlorr()+":"+map.getCharuord());
+		chars.update(map.getCharlorr(), map.getCharuord());
 	}
 	
 	public void render()
@@ -105,7 +99,8 @@ public class Hydra_Main implements Runnable, ComponentListener
 		Graphics2D g = (Graphics2D)panel.getGraphics();
 		if(g !=null)
 		{
-			g.drawImage(image, 0, 0, null);
+//			System.out.println(map.getX());
+			g.drawImage(image, map.getWinX(),map.getWinY(), null);
 			g.dispose();
 		}
 	}
@@ -123,22 +118,22 @@ public class Hydra_Main implements Runnable, ComponentListener
 			}
 			if(fps.secondDone())
 			{
-				System.out.println("FPS: "+fps.getFPS());
+//				System.out.println("FPS: "+fps.getFPS());
 				fpsd = false;
+//				System.out.println(updated);
+				System.out.println("Updates: "+updated + " -- FPS: "+fps.getFPS());
+				updated = 0;
 			}
-			fps.beginTime();
-			update();
+			if(fps.update())
+			{
+				update();
+				update = false;
+				updateinit = false;
+				updated++;
+			}
 			render();
 			draw();
-			fps.endTime();
-			try{
-				Thread.sleep(fps.getWaitTime());
-			} catch(InterruptedException e)
-			{
-				e.printStackTrace();
-			}
 			fps.addFPS();
-
 		}
 	}
 		@Override
@@ -161,5 +156,46 @@ public class Hydra_Main implements Runnable, ComponentListener
 		public void componentResized(ComponentEvent e) {
 			panel.resize(window.getWidth()-22, window.getHeight()-56);
 			renderer.resize(window.getWidth()-22, window.getHeight()-56);
+		}
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			int key = arg0.getKeyCode();
+			switch(key)
+			{
+			case KeyEvent.VK_LEFT:
+				lorr = Direction.left;
+				break;
+			case KeyEvent.VK_RIGHT:
+				lorr = Direction.right;
+				break;
+			case KeyEvent.VK_UP:
+				uord = Direction.up;
+				break;
+			case KeyEvent.VK_DOWN:
+				uord = Direction.down;
+				break;
+			}
+		}
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			int key = arg0.getKeyCode();
+			switch(key)
+			{
+			case KeyEvent.VK_LEFT:
+				lorr = Direction.none;
+				break;
+			case KeyEvent.VK_RIGHT:
+				lorr = Direction.none;
+				break;
+			case KeyEvent.VK_UP:
+				uord = Direction.none;
+				break;
+			case KeyEvent.VK_DOWN:
+				uord = Direction.none;
+				break;
+			}
+		}
+		@Override
+		public void keyTyped(KeyEvent arg0) {		
 		}
 }

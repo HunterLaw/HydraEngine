@@ -8,6 +8,13 @@ public class FPS{
 	private long begin;
 	private long end;
 	private long wait;
+	private long elapsed;
+	private boolean updateinit = true;
+	
+	private double updatetime = 1000000000/60;
+	private long lastTime = System.nanoTime();
+	private long now;
+	private double delta=0;
 	
 	private long beginfps;
 	private long fpstimeelapse;
@@ -21,7 +28,7 @@ public class FPS{
 	public FPS(int numframes)
 	{
 		frames = numframes;
-		targetfps = 1000/frames;
+		targetfps = 1000000000/frames;
 	}
 	/*
 	 * beginTime()
@@ -37,14 +44,14 @@ public class FPS{
 	 * 
 	 * Sets the ending time of the frame then calculates how long it should wait before starting the next frame
 	 */
-	public void endTime()
+	public boolean endTime()
 	{
-		end = System.nanoTime();
-		wait = targetfps-((end - begin)/1000000);
-		if(wait < 0)
+		elapsed =System.nanoTime() - begin;
+		if(elapsed > updatetime)
 		{
-			wait = 0;
+			return true;
 		}
+		return false;
 	}
 	/*
 	 * getWaitTime()
@@ -92,5 +99,18 @@ public class FPS{
 	{
 		fpstimeelapse = System.nanoTime();
 		return ((fpstimeelapse-beginfps)/1000000) >= fpstime;
+	}
+	
+	public boolean update()
+	{
+		now = System.nanoTime();
+		delta += (now - lastTime)/updatetime;
+		lastTime = now;
+		if(delta >= 1)
+		{
+			delta--;
+			return true;
+		}
+		return false;
 	}
 }

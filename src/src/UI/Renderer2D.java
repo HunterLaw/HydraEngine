@@ -11,6 +11,7 @@ import src.objects.TexturedObject2D;
 public class Renderer2D {
 	BufferedImage image;
 	ArrayList<Object2D> objects;
+	Minimap mini;
 	Object bg;
 	int bgwidth;
 	int bgheight;
@@ -29,15 +30,6 @@ public class Renderer2D {
 		objects = new ArrayList<Object2D>();
 	}
 	/*
-	 * addObject()
-	 * 
-	 * Add and object to render to the object array
-	 */
-	public void addObject(Object2D object)
-	{
-		objects.add(object);
-	}
-	/*
 	 * setBgObject()
 	 * 
 	 * Use this if you want a static background image and you dont want to scale the image
@@ -45,6 +37,16 @@ public class Renderer2D {
 	public void setBgObject(Object object)
 	{
 		bg = object;
+	}
+	
+	public void setMinimap(Minimap map)
+	{
+		mini = map;
+	}
+	
+	public void setObjectArray(ArrayList<Object2D> objectss)
+	{
+		objects = objectss;
 	}
 	/*
 	 * setBgObject()
@@ -60,6 +62,18 @@ public class Renderer2D {
 			bgheight = heights;
 		}
 		else if(object instanceof VerticalScrollingBG)
+		{
+			bg = object;
+			bgwidth = widths;
+			bgheight = heights;
+		}
+		else if(object instanceof HorizontalScrollingBG)
+		{
+			bg = object;
+			bgwidth = widths;
+			bgheight = heights;
+		}
+		else if(object instanceof ScrollingMap)
 		{
 			bg = object;
 			bgwidth = widths;
@@ -94,6 +108,14 @@ public class Renderer2D {
 			{
 				g.drawImage(((VerticalScrollingBG)bg).getImage(), 0, ((VerticalScrollingBG)bg).getY() ,bgwidth,bgheight, null);
 			}
+			else if(bg instanceof HorizontalScrollingBG)
+			{
+				g.drawImage(((HorizontalScrollingBG)bg).getImage(), ((HorizontalScrollingBG)bg).getX() , 0 ,bgwidth,bgheight, null);
+			}
+			else if(bg instanceof ScrollingMap)
+			{
+				g.drawImage(((ScrollingMap)bg).getImage(), 0, 0, null);
+			}
 			else //Draws a static background image
 			{
 				g.drawImage(((BufferedImage)bg),0,0,bgwidth,bgheight,null);
@@ -102,25 +124,64 @@ public class Renderer2D {
 			{
 				if(objects.get(i).isEnabled())//Checks to see if the object in the array "wants to be drawn" to the screen
 				{
-					if(objects.get(i) instanceof TexturedObject2D) //If a TexturedObject2D, draw the texture
+					if(bg instanceof ScrollingMap)
 					{
-						object = (TexturedObject2D)objects.get(i);
-						g.drawImage(object.getImage(),object.getX(),object.getY(),object.getWidth(),object.getHeight(),null);
-						object = null;
+						if(objects.get(i) instanceof TexturedObject2D) //If a TexturedObject2D, draw the texture
+						{
+							object = (TexturedObject2D)objects.get(i);
+							g.drawImage(object.getImage(),object.getX()+((ScrollingMap)bg).getX(),object.getY()+((ScrollingMap)bg).getY(),object.getWidth(),object.getHeight(),null);
+							object = null;
+						}
+						else if(objects.get(i) instanceof NonTexturedObject2D) //If a NonTexturedObject2D, draw the rectangle of the object in the color specified
+						{
+							nonObject = (NonTexturedObject2D)objects.get(i);
+							g.setColor(nonObject.getColor());
+							if(!nonObject.getFilled()) //Checks to see if the object should be drawn as a filled or outlined rectangle
+								g.drawRect(nonObject.getX()+((ScrollingMap)bg).getX(), nonObject.getY()+((ScrollingMap)bg).getY(), nonObject.getWidth(), nonObject.getHeight());
+							else
+								g.fillRect(nonObject.getX()+((ScrollingMap)bg).getX(), nonObject.getY()+((ScrollingMap)bg).getY(), nonObject.getWidth(), nonObject.getHeight());
+							nonObject = null;
+						}
 					}
-					else if(objects.get(i) instanceof NonTexturedObject2D) //If a NonTexturedObject2D, draw the rectangle of the object in the color specified
+					else
 					{
-						nonObject = (NonTexturedObject2D)objects.get(i);
-						g.setColor(nonObject.getColor());
-						if(!nonObject.getFilled()) //Checks to see if the object should be drawn as a filled or outlined rectangle
-							g.drawRect(nonObject.getX(), nonObject.getY(), nonObject.getWidth(), nonObject.getHeight());
-						else
-							g.fillRect(nonObject.getX(), nonObject.getY(), nonObject.getWidth(), nonObject.getHeight());
-						nonObject = null;
+						if(objects.get(i) instanceof TexturedObject2D) //If a TexturedObject2D, draw the texture
+						{
+							object = (TexturedObject2D)objects.get(i);
+							g.drawImage(object.getImage(),object.getX(),object.getY(),object.getWidth(),object.getHeight(),null);
+							object = null;
+						}
+						else if(objects.get(i) instanceof NonTexturedObject2D) //If a NonTexturedObject2D, draw the rectangle of the object in the color specified
+						{
+							nonObject = (NonTexturedObject2D)objects.get(i);
+							g.setColor(nonObject.getColor());
+							if(!nonObject.getFilled()) //Checks to see if the object should be drawn as a filled or outlined rectangle
+								g.drawRect(nonObject.getX(), nonObject.getY(), nonObject.getWidth(), nonObject.getHeight());
+							else
+								g.fillRect(nonObject.getX(), nonObject.getY(), nonObject.getWidth(), nonObject.getHeight());
+							nonObject = null;
+						}
 					}
 				}
 			}
+//			if(mini != null)
+//			{
+//				mini.update(image);
+//				g.drawImage(mini.getImage(), mini.getX(), mini.getY(), mini.getWidth(), mini.getHeight(), null);
+//			}
 		g.dispose();
+		Graphics2D gg = (Graphics2D) image.getGraphics();
+		if(mini != null)
+		{
+				mini.update(image);
+				gg.drawImage(mini.getImage(), ((ScrollingMap)bg).getX()+mini.getX(), ((ScrollingMap)bg).getY()+mini.getY(), null);
+		}
+		gg.dispose();
 		return image;
+	}
+	
+	public ArrayList<Object2D> getObjects()
+	{
+		return objects;
 	}
 }
