@@ -152,34 +152,37 @@ public class ScrollingMap extends TexturedObject2D{
 	
 	public void setCharCenter(Object2D chars)
 	{
-		NewRectangle offrect = new NewRectangle((winwidth/2)-offset,(winheight/2)-offset,chars.getWidth()+(offset*2),chars.getHeight()+(offset*2));
-		Rectangle charrect = new Rectangle(chars.getX(),chars.getY(),chars.getWidth(),chars.getHeight());
-		if(offrect.rectXInside(charrect) && getCharMoveX())
+		if(chars != null)
 		{
-			if(xtimes == 0)
+			int midcharx = chars.getX()+(chars.getWidth()/2);
+			int midwinx = winwidth/2;
+			int midchary = chars.getY()+(chars.getHeight()/2);
+			int midwiny = winheight/2;
+			if(midcharx > midwinx && midcharx <= midwinx+offset && charlorr == Direction.left)
 			{
-				chars.setX((winwidth/2)-(chars.getWidth()/2));
+				chars.setX(midwinx-(chars.getWidth()/2));
+				charmovex = false;
+				charlorr = Direction.none;
 			}
-			else 
+			if(midcharx < midwinx && midcharx >= midwinx-offset&& charlorr == Direction.right)
 			{
-				xtimes = 0;
+				chars.setX(midwinx-(chars.getWidth()/2));
+				charmovex = false;
+				charlorr = Direction.none;
 			}
-			setCharMoveX(false);
-			xtimes++;
-
-		}
-		if(offrect.rectYInside(charrect) && getCharMoveY())
-		{
-			if(ytimes == 0)
+			
+			if(midchary < midwiny && midchary >= midwiny-offset && charuord == Direction.down)
 			{
-				chars.setY((winheight/2)-(chars.getHeight()/2));
+				chars.setY(midwiny-(chars.getHeight()/2));
+				charmovey = false;
+				charuord = Direction.none;
 			}
-			else
+			if(midchary > midwiny && midchary <= midwiny+offset&& charuord == Direction.up)
 			{
-				ytimes = 0;
+				chars.setY(midwiny-(chars.getHeight()/2));
+				charmovey = false;
+				charuord = Direction.none;
 			}
-			setCharMoveY(false);
-			ytimes++;
 		}
 	}
 
@@ -210,11 +213,11 @@ public class ScrollingMap extends TexturedObject2D{
 
 	public int getWinX()
 	{
-		return -x;
+		return -getX();
 	}
 	
 	public int getWinY()
 	{
-		return -y;
+		return -getY();
 	}
 }

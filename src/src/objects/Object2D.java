@@ -2,10 +2,13 @@ package src.objects;
 
 import java.awt.Dimension;
 
+import src.movement.Direction;
+
 public class Object2D 
 {
-	protected int x;
-	protected int y;
+	protected double x;
+	protected double y;
+	protected double movespeed = 2;
 	protected int width;
 	protected int height;
 	protected boolean enabled = false;
@@ -64,6 +67,38 @@ public class Object2D
 	{
 		y = ys;
 	}
+	
+	public void setMovespeed(double move)
+	{
+		movespeed = move;
+	}
+	
+	public int simulateX(Direction lorr)
+	{
+		if(lorr == Direction.right)
+		{
+			return (int)(x+movespeed);
+		}
+		else if(lorr == Direction.left)
+		{
+			return (int)(x-movespeed);
+		}
+		return (int)x;
+	}
+	
+	public int simulateY(Direction uord)
+	{
+		if(uord == Direction.up)
+		{
+			return (int)(y-movespeed);
+		}
+		else if(uord == Direction.down)
+		{
+			return (int)(y+movespeed);
+		}
+		return (int)x;
+	}
+	
 	/*
 	 * isEnabled()
 	 * 
@@ -80,7 +115,7 @@ public class Object2D
 	 */
 	public int getX()
 	{
-		return x;
+		return (int)x;
 	}
 	/*
 	 * getY()
@@ -89,7 +124,7 @@ public class Object2D
 	 */
 	public int getY()
 	{
-		return y;
+		return (int)y;
 	}
 	/*
 	 * getWidth()

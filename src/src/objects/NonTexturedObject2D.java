@@ -32,7 +32,7 @@ public class NonTexturedObject2D extends Object2D {
 	 */
 	private void createRect()
 	{
-		rect = new Rectangle(x,y,width,height);
+		rect = new Rectangle(getX(),getY(),width,height);
 	}
 	/*
 	 * setColor()

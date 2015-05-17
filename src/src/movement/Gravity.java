@@ -23,7 +23,7 @@ public class Gravity
 		maxfallingspeed = falling;
 	}
 	
-	public int update(int ys)
+	public double update(int ys)
 	{
 //		System.out.println(ys);
 		if(enabled)

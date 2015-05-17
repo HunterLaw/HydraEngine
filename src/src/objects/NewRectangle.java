@@ -36,5 +36,5 @@ public class NewRectangle extends Rectangle{
 		}
 		return false;
 	}
-	
+
 }

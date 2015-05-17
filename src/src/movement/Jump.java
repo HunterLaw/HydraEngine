@@ -25,7 +25,7 @@ public class Jump
 		initjumpspeed = jumping;
 	}
 	
-	public int update(int ys)
+	public double update(int ys)
 	{
 //		System.out.println("Before: "+ys);
 		if(enabled)

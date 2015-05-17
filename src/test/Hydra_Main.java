@@ -29,10 +29,8 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	BufferedImage image;
 	static boolean running = false;
 	boolean fpsd = false;
-	boolean update = false;
-	boolean updateinit = false;
 	int updated = 0;
-	FPS fps = new FPS(60);
+	FPS fps = new FPS();
 	static Character chars;
 	static Direction lorr = Direction.none;
 	static Direction uord = Direction.none;
@@ -44,8 +42,6 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	static Minimap mini;
 	static ScrollingMap map;
 	static final int minimapsize = 96;
-	static int xtimes = 0;
-	static int ytimes = 0;
 	
 	static ArrayList<Object2D> objects;
 	public static void main(String[] args)
@@ -82,10 +78,10 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	
 	public void update()
 	{
-		map.setCharCenter(chars);
+//		map.setCharCenter(chars);
 		map.update(objects, lorr, uord);
 		map.setCharCenter(chars);
-		System.out.println(map.getCharlorr()+":"+map.getCharuord());
+//		System.out.println(map.getCharlorr()+":"+map.getCharuord());
 		chars.update(map.getCharlorr(), map.getCharuord());
 	}
 	
@@ -101,6 +97,9 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 		{
 //			System.out.println(map.getX());
 			g.drawImage(image, map.getWinX(),map.getWinY(), null);
+			g.setColor(Color.cyan);
+			g.drawLine(320, 0, 320, 480);
+			g.drawLine(0,240,640,240);
 			g.dispose();
 		}
 	}
@@ -111,24 +110,22 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 			sound.playSound();
 		while(running)
 		{
-			if(!fpsd)
-			{
-				fps.startFPSTime();
-				fpsd = true;
-			}
 			if(fps.secondDone())
 			{
 //				System.out.println("FPS: "+fps.getFPS());
 				fpsd = false;
 //				System.out.println(updated);
-				System.out.println("Updates: "+updated + " -- FPS: "+fps.getFPS());
+//				System.out.println("Updates: "+updated + " -- FPS: "+fps.getFPS());
 				updated = 0;
 			}
-			if(fps.update())
+			if(!fpsd)
+			{
+				fps.startFPSTime();
+				fpsd = true;
+			}
+			if(fps.update() && updated <60)
 			{
 				update();
-				update = false;
-				updateinit = false;
 				updated++;
 			}
 			render();
@@ -182,16 +179,28 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 			switch(key)
 			{
 			case KeyEvent.VK_LEFT:
-				lorr = Direction.none;
+				if(lorr != Direction.right)
+				{
+					lorr = Direction.none;
+				}
 				break;
 			case KeyEvent.VK_RIGHT:
-				lorr = Direction.none;
+				if(lorr != Direction.left)
+				{
+					lorr = Direction.none;
+				}
 				break;
 			case KeyEvent.VK_UP:
-				uord = Direction.none;
+				if(uord != Direction.down)
+				{
+					uord = Direction.none;
+				}
 				break;
 			case KeyEvent.VK_DOWN:
-				uord = Direction.none;
+				if(uord != Direction.up)
+				{
+					uord = Direction.none;
+				}
 				break;
 			}
 		}

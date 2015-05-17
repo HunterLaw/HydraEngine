@@ -3,15 +3,14 @@ package src.UI;
 public class FPS{
 	
 	public final static String version = "0_2";
-	private int frames = 30;
-	private long targetfps;
+	private int updates = 60;
+	private final long million = 1000000;
+	private final long billion = 1000000000;
 	private long begin;
-	private long end;
 	private long wait;
 	private long elapsed;
-	private boolean updateinit = true;
 	
-	private double updatetime = 1000000000/60;
+	private double updatetime = billion/updates;
 	private long lastTime = System.nanoTime();
 	private long now;
 	private double delta=0;
@@ -23,12 +22,17 @@ public class FPS{
 	
 	
 	/*
-	 * Constructor set the maximum frames then sets the amount of time one frame should take
+	 * Constructor set the maximum updates/sec
 	 */
-	public FPS(int numframes)
+	public FPS(int updatess)
 	{
-		frames = numframes;
-		targetfps = 1000000000/frames;
+		updates = updatess;
+		updatetime = billion/updates;
+	}
+	
+	public FPS()
+	{
+		
 	}
 	/*
 	 * beginTime()
@@ -98,7 +102,7 @@ public class FPS{
 	public boolean secondDone()
 	{
 		fpstimeelapse = System.nanoTime();
-		return ((fpstimeelapse-beginfps)/1000000) >= fpstime;
+		return ((fpstimeelapse-beginfps)/million) >= fpstime;
 	}
 	
 	public boolean update()
