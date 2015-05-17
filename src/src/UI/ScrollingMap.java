@@ -1,10 +1,8 @@
 package src.UI;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import src.movement.Direction;
-import src.objects.NewRectangle;
 import src.objects.Object2D;
 import src.objects.TexturedObject2D;
 
@@ -20,8 +18,6 @@ public class ScrollingMap extends TexturedObject2D{
 	private Direction charuord = Direction.none;
 	private boolean charmovex = false;
 	private boolean charmovey = false;
-	private int xtimes = 0;
-	private int ytimes = 0;
 	ArrayList<Object2D> objects = new ArrayList<Object2D>();
 	public ScrollingMap(int xs, int ys, int widths, int heights, int winwidths, int winheights, int movespeeds) {
 		super(xs, ys, widths, heights, false);
