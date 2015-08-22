@@ -15,11 +15,11 @@ public class TexturedObject2D extends NonTexturedObject2D {
 	/*
 	 * Constructors call NonTexturedObject2D's constructor
 	 */
-	public TexturedObject2D(int xs, int ys, Dimension sizes,boolean filled) {
+	public TexturedObject2D(double xs, double ys, Dimension sizes,boolean filled) {
 		super(xs, ys, sizes,filled);
 	}
 
-	public TexturedObject2D(int xs, int ys, int widths, int heights,boolean filled) {
+	public TexturedObject2D(double xs, double ys, int widths, int heights,boolean filled) {
 		super(xs, ys, widths,heights,filled);
 	}
 	/*

@@ -16,7 +16,7 @@ public class Object2D
 	/*
 	 * Constructor sets the basic information about the object
 	 */
-	public Object2D(int xs,int ys,Dimension sizes)
+	public Object2D(double xs,double ys,Dimension sizes)
 	{
 		x = xs;
 		y = ys;
@@ -24,7 +24,7 @@ public class Object2D
 		height= (int)sizes.getWidth();
 	}
 	
-	public Object2D(int xs,int ys,int widths,int heights)
+	public Object2D(double xs,double ys,int widths,int heights)
 	{
 		x = xs;
 		y = ys;

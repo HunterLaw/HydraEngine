@@ -13,13 +13,13 @@ public class NonTexturedObject2D extends Object2D {
 	/*
 	 * Both constructors do the same thing but one has a individual height and width and the other has a dimension
 	 */
-	public NonTexturedObject2D(int xs, int ys, Dimension sizes,boolean filleds) {
+	public NonTexturedObject2D(double xs, double ys, Dimension sizes,boolean filleds) {
 		super(xs, ys, sizes);
 		filled = filleds;
 		createRect();
 	}
 	
-	public NonTexturedObject2D(int xs, int ys, int width, int height,boolean filleds) {
+	public NonTexturedObject2D(double xs, double ys, int width, int height,boolean filleds) {
 		super(xs, ys, width,height);
 		filled = filleds;
 		createRect();
