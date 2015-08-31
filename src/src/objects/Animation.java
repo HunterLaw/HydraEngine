@@ -25,6 +25,11 @@ public class Animation
 		images.add(image);
 	}
 	
+	public void restart()
+	{
+		place = 0;
+	}
+	
 	public BufferedImage update()
 	{
 		change++;

@@ -144,4 +144,13 @@ public class Object2D
 	{
 		return height;
 	}
+	/*
+	 * getMovespeed()
+	 * 
+	 * return the objects movespeed
+	 */
+	public double getMovespeed()
+	{
+		return movespeed;
+	}
 }

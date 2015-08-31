@@ -22,6 +22,16 @@ public class TexturedObject2D extends NonTexturedObject2D {
 	public TexturedObject2D(double xs, double ys, int widths, int heights,boolean filled) {
 		super(xs, ys, widths,heights,filled);
 	}
+	
+	/*
+	 * setImage()
+	 * 
+	 * Sets the image from a BufferedImage
+	 */
+	public void setImage(BufferedImage image)
+	{
+		texture = image;
+	}
 	/*
 	 * loadBasicImage()
 	 * 

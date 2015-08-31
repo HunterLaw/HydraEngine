@@ -1,16 +1,19 @@
 package src.objects;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
-public class HealthBar2D {
+public class HealthBar2D extends TexturedObject2D
+{
 	private Rectangle healthbar;
 	private Rectangle health;
 	private Color healthcolor;
 	
 	private int x =0;
 	private int y =0;
-	private int healthsize = 31;
+	private int healthsize = 30;
 	private double totalhealth;
 	private double healthpercent = 1.0;
 	private int yoffset;
@@ -23,8 +26,9 @@ public class HealthBar2D {
 	 */
 	public HealthBar2D(double totalhealths,int yoffsets)
 	{
+		super(0,0,32,5,false);
 		healthbar = new Rectangle(32,5);
-		health = new Rectangle(31,3);
+		health = new Rectangle(30,3);
 		healthcolor = high;
 		totalhealth = totalhealths;
 		yoffset=yoffsets;
@@ -52,8 +56,14 @@ public class HealthBar2D {
 			healthcolor = high;
 		}
 		healthpercent = currenthealth/totalhealth;
-		health.setSize((int)(healthsize*healthpercent), 4);
-
+		health.setSize((int)(healthsize*healthpercent), 3);
+		texture = new BufferedImage(healthbar.width,healthbar.height,BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D)texture.getGraphics();
+		g.setColor(Color.black);
+		g.fillRect(0, 0, healthbar.width, healthbar.height);
+		g.setColor(healthcolor);
+		g.fillRect(1, 1, health.width, health.height);
+		g.dispose();
 	}
 	/*
 	 * setHealthColors

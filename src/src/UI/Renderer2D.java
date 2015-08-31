@@ -129,7 +129,7 @@ public class Renderer2D {
 						if(objects.get(i) instanceof TexturedObject2D) //If a TexturedObject2D, draw the texture
 						{
 							object = (TexturedObject2D)objects.get(i);
-							g.drawImage(object.getImage(),object.getX()+((ScrollingMap)bg).getX(),object.getY()+((ScrollingMap)bg).getY(),object.getWidth(),object.getHeight(),null);
+							g.drawImage(object.getImage(),object.getX(),object.getY(),object.getWidth(),object.getHeight(),null);
 							object = null;
 						}
 						else if(objects.get(i) instanceof NonTexturedObject2D) //If a NonTexturedObject2D, draw the rectangle of the object in the color specified
@@ -137,9 +137,9 @@ public class Renderer2D {
 							nonObject = (NonTexturedObject2D)objects.get(i);
 							g.setColor(nonObject.getColor());
 							if(!nonObject.getFilled()) //Checks to see if the object should be drawn as a filled or outlined rectangle
-								g.drawRect(nonObject.getX()+((ScrollingMap)bg).getX(), nonObject.getY()+((ScrollingMap)bg).getY(), nonObject.getWidth(), nonObject.getHeight());
+								g.drawRect(nonObject.getX(), nonObject.getY(), nonObject.getWidth(), nonObject.getHeight());
 							else
-								g.fillRect(nonObject.getX()+((ScrollingMap)bg).getX(), nonObject.getY()+((ScrollingMap)bg).getY(), nonObject.getWidth(), nonObject.getHeight());
+								g.fillRect(nonObject.getX(), nonObject.getY(), nonObject.getWidth(), nonObject.getHeight());
 							nonObject = null;
 						}
 					}
