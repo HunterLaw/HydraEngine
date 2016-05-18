@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class TexturedObject2D extends NonTexturedObject2D {
+public abstract class TexturedObject2D extends NonTexturedObject2D {
 
 	protected BufferedImage texture;
 	protected File file;
@@ -21,6 +21,11 @@ public class TexturedObject2D extends NonTexturedObject2D {
 
 	public TexturedObject2D(double xs, double ys, int widths, int heights,boolean filled) {
 		super(xs, ys, widths,heights,filled);
+	}
+	
+	public TexturedObject2D(double x,double y,double radius)
+	{
+		super(x,y,radius,false);
 	}
 	
 	/*

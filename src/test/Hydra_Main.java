@@ -19,6 +19,7 @@ import src.UI.ScrollingMap;
 import src.UI.Window;
 import src.media.Sound;
 import src.movement.Direction;
+import src.objects.NonTexturedObject2D;
 import src.objects.Object2D;
 
 public class Hydra_Main implements Runnable, ComponentListener, KeyListener
@@ -43,14 +44,14 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	static ScrollingMap map;
 	static final int minimapsize = 96;
 	
-	static ArrayList<Object2D> objects;
+	static ArrayList<NonTexturedObject2D> objects;
 	public static void main(String[] args)
 	{
 		GUI();
 	}
 	public static void GUI()
 	{
-		objects = new ArrayList<Object2D>();
+		objects = new ArrayList<NonTexturedObject2D>();
 		map = new ScrollingMap(0,0,640*2,480*2,640,480);
 		map.loadBasicImage(bgs);
 		map.enable();

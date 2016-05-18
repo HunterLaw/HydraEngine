@@ -1,16 +1,26 @@
 package src.objects;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import src.movement.Direction;
 
-public class Object2D 
+public abstract class Object2D
 {
-	protected double x;
-	protected double y;
+	public enum Shape { rect,circle};
+
+	protected Shape shape;
+	
+	protected Rectangle rect;
+	protected Ellipse cir;
+	
+	protected double x,y,cx,cy,diameter;
 	protected double movespeed = 2;
-	protected int width;
-	protected int height;
+	
+	protected int width,height;
+	
 	protected boolean enabled = false;
 	
 	/*
@@ -30,6 +40,35 @@ public class Object2D
 		y = ys;
 		width = widths;
 		height= heights;
+		shape = Shape.rect;
+	}
+	
+	public Object2D(double x,double y,double diameter)
+	{
+		cx = x;
+		cy = y;
+		this.x = cx-(diameter/2);
+		this.y = cy-(diameter/2);
+		this.diameter = diameter;
+		shape = Shape.rect;
+	}
+	
+	public abstract void update();
+	
+	protected void createCircle()
+	{
+		double d = diameter*2;
+		cir = new Ellipse(x-diameter,y-diameter,d,d);
+		shape = Shape.circle;
+	}
+	/*
+	 * createRect()
+	 * 
+	 * Creates a rectangle to the dimensions given
+	 */
+	protected void createRect()
+	{
+		rect = new Rectangle(getX(),getY(),width,height);
 	}
 	/*
 	 * enable()
@@ -152,5 +191,26 @@ public class Object2D
 	public double getMovespeed()
 	{
 		return movespeed;
+	}
+	
+	public int getDiameter()
+	{
+		return (int)diameter;
+	}
+	
+	public Shape getShape()
+	{
+		return shape;
+	}
+	
+	public Ellipse getCircle()
+	{
+		return cir;
+	}
+	
+	public Rectangle getRect()
+	{
+		createRect();
+		return rect;
 	}
 }

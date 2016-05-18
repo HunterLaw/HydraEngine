@@ -38,4 +38,10 @@ public class Minimap extends TexturedObject2D{
 		g.dispose();
 		texture = temp;
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

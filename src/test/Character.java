@@ -39,5 +39,11 @@ public class Character extends NonTexturedObject2D{
 				y= 480-height;
 		}
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -137,4 +137,9 @@ public class HealthBar2D extends TexturedObject2D
 	{
 		return y;
 	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

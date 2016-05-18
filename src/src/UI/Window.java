@@ -25,6 +25,7 @@ public class Window extends JFrame{
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);	
+		pack();
 	}
 	
 	public Window(JPanel panel,JPanel panel2,String title)
@@ -38,6 +39,7 @@ public class Window extends JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);	
 		setLayout(null);
+		pack();
 	}
 	/*
 	 * centerFrame()

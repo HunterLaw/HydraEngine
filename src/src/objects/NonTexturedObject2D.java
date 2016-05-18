@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
-public class NonTexturedObject2D extends Object2D {
-
-	protected Color color;
+public abstract class NonTexturedObject2D extends Object2D {
+	
+	protected Color color = Color.BLACK;
 	protected Rectangle rect;
-	protected boolean filled = false;;
+	protected boolean filled = false;
 	
 	/*
 	 * Both constructors do the same thing but one has a individual height and width and the other has a dimension
@@ -17,22 +17,22 @@ public class NonTexturedObject2D extends Object2D {
 		super(xs, ys, sizes);
 		filled = filleds;
 		createRect();
+		shape = Shape.rect;
 	}
 	
 	public NonTexturedObject2D(double xs, double ys, int width, int height,boolean filleds) {
 		super(xs, ys, width,height);
 		filled = filleds;
 		createRect();
+		shape = Shape.rect;
 	}
 	
-	/*
-	 * createRect()
-	 * 
-	 * Creates a rectangle to the dimensions given
-	 */
-	private void createRect()
+	public NonTexturedObject2D(double x,double y,double radius,boolean filled)
 	{
-		rect = new Rectangle(getX(),getY(),width,height);
+		super(x,y,radius);
+		this.filled = filled;
+		createCircle();
+		shape = Shape.circle;
 	}
 	/*
 	 * setColor()

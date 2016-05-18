@@ -3,6 +3,7 @@ package src.UI;
 import java.util.ArrayList;
 
 import src.movement.Direction;
+import src.objects.NonTexturedObject2D;
 import src.objects.Object2D;
 import src.objects.TexturedObject2D;
 
@@ -18,7 +19,7 @@ public class ScrollingMap extends TexturedObject2D{
 	private Direction charuord = Direction.none;
 	private boolean charmovex = false;
 	private boolean charmovey = false;
-	ArrayList<Object2D> objects = new ArrayList<Object2D>();
+	ArrayList<NonTexturedObject2D> objects = new ArrayList<NonTexturedObject2D>();
 	Object2D chars;
 	public ScrollingMap(int xs, int ys, int widths, int heights, int winwidths, int winheights, int movespeeds) {
 		super(xs, ys, widths, heights, false);
@@ -37,7 +38,7 @@ public class ScrollingMap extends TexturedObject2D{
 		this.chars = chars;
 	}
 
-	public void update(ArrayList<Object2D> objectss, Direction lorr, Direction uord)
+	public void update(ArrayList<NonTexturedObject2D> objectss, Direction lorr, Direction uord)
 	{
 		objects = objectss;
 
@@ -254,5 +255,10 @@ public class ScrollingMap extends TexturedObject2D{
 	public int getWinY()
 	{
 		return -getY();
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }
