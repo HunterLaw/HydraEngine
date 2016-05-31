@@ -20,7 +20,6 @@ import src.UI.Window;
 import src.media.Sound;
 import src.movement.Direction;
 import src.objects.NonTexturedObject2D;
-import src.objects.Object2D;
 
 public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 {

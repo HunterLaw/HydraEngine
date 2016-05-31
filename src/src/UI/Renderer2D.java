@@ -104,8 +104,6 @@ public class Renderer2D implements Serializable{
 	public BufferedImage render()
 	{
 		int max = objects.size(); //Sets the max size of the object array
-		NonTexturedObject2D nonObject;
-		TexturedObject2D object;
 		image = new BufferedImage(width,height,imageType); //Resets the image
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		if(bg instanceof VerticalScrollingBG) //Draws a VerticalScrollingBG image

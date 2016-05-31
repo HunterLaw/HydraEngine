@@ -12,6 +12,10 @@ import src.objects.TexturedObject2D;
 
 public class Ball extends TexturedObject2D
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3390629810650355105L;
 	Gravity gravity = new Gravity(4,30);
 	BufferedImage image1;
 	BufferedImage image2;

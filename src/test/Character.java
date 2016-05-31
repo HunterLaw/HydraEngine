@@ -5,6 +5,10 @@ import src.objects.NonTexturedObject2D;
 
 public class Character extends NonTexturedObject2D{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8187954930668724733L;
 	int movespeed = 5;
 	
 	public Character(int xs, int ys, int width, int height, boolean filleds) {
