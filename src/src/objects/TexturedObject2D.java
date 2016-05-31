@@ -9,6 +9,10 @@ import javax.imageio.ImageIO;
 
 public abstract class TexturedObject2D extends NonTexturedObject2D {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8634265408847983708L;
 	protected BufferedImage texture;
 	protected File file;
 	

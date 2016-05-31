@@ -8,10 +8,11 @@ import javax.swing.JPanel;
 
 public class Window extends JFrame{
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9071679076520409247L;
 	/*
 	 * Constructor sets the title, default close operation, sets resizable to false, adds the panel(s) specified, sets
 	 * the location to relative to nothing, and sets visible to true

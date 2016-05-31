@@ -2,13 +2,18 @@ package src.objects;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.io.Serializable;
 
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import src.movement.Direction;
 
-public abstract class Object2D
+public abstract class Object2D implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5135083994308040717L;
+
 	public enum Shape { rect,circle};
 
 	protected Shape shape;

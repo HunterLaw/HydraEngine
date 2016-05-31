@@ -1,7 +1,13 @@
 package src.movement;
 
-public class Gravity 
+import java.io.Serializable;
+
+public class Gravity implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4026542045537530763L;
 	boolean enabled = false;
 	double maxfallingspeed;
 	double fallingspeed;

@@ -1,10 +1,15 @@
 package src.objects;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Animation 
+public class Animation implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5141362201358443372L;
 	ArrayList<BufferedImage> images;
 	int place = 0;
 	int change = 0;

@@ -2,7 +2,7 @@ package src.objects;
 
 import java.awt.Rectangle;
 
-public class NewRectangle extends Rectangle{
+public class NewRectangle extends Rectangle {
 
 	/**
 	 * 

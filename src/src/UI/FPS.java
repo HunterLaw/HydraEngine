@@ -1,7 +1,13 @@
 package src.UI;
 
-public class FPS{
+import java.io.Serializable;
+
+public class FPS implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2460581337308349859L;
 	public final static String version = "0_2";
 	private int updates = 60;
 	private final long million = 1000000;

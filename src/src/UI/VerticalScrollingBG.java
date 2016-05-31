@@ -2,9 +2,14 @@ package src.UI;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class VerticalScrollingBG
+public class VerticalScrollingBG implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1606902216074874863L;
 	int movespeed = 2;
 	int y = 0;
 	int yoffset;

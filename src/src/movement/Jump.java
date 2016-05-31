@@ -1,7 +1,13 @@
 package src.movement;
 
-public class Jump 
+import java.io.Serializable;
+
+public class Jump implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4451031923577565657L;
 	boolean enabled = false;
 	boolean completed = true;
 	double initjumpspeed;

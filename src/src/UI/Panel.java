@@ -6,10 +6,12 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel{
 	
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7044317561147189833L;
 
 	Thread thread;
 	

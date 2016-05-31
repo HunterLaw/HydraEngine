@@ -6,6 +6,10 @@ import java.awt.Rectangle;
 
 public abstract class NonTexturedObject2D extends Object2D {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 71631628613151530L;
 	protected Color color = Color.BLACK;
 	protected Rectangle rect;
 	protected boolean filled = false;

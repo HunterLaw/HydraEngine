@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 
 public class HealthBar2D extends TexturedObject2D
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2589704241073492424L;
 	private Rectangle healthbar;
 	private Rectangle health;
 	private Color healthcolor;

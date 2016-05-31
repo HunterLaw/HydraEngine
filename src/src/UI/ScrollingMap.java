@@ -8,6 +8,10 @@ import src.objects.Object2D;
 import src.objects.TexturedObject2D;
 
 public class ScrollingMap extends TexturedObject2D{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7406384204090085166L;
 	//TODO: Finish class
 	Direction lorr = Direction.none;
 	Direction uord = Direction.none;

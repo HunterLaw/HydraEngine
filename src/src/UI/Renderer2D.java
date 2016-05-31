@@ -2,12 +2,17 @@ package src.UI;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import src.objects.NonTexturedObject2D;
 import src.objects.TexturedObject2D;
 
-public class Renderer2D {
+public class Renderer2D implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1680824798029018860L;
 	BufferedImage image;
 	ArrayList<NonTexturedObject2D> objects;
 	Minimap mini;

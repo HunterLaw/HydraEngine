@@ -1,6 +1,6 @@
 package src.movement;
 
-public enum Direction {
+public enum Direction{
 	/*
 	 * Just some directions
 	 * 

@@ -8,6 +8,10 @@ import src.objects.TexturedObject2D;
 
 public class Minimap extends TexturedObject2D{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4959764315372145333L;
 	BufferedImage temp;
 	private Color bordercolor;
 	private int borderwidth, borderheight;

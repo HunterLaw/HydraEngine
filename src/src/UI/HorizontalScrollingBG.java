@@ -2,9 +2,14 @@ package src.UI;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class HorizontalScrollingBG {
+public class HorizontalScrollingBG implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2755389867732735169L;
 	int movespeed = 2;
 	int x = 0;
 	int xoffset ,yoffset;
