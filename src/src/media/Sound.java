@@ -31,6 +31,7 @@ public class Sound implements Serializable
 	 */
 	public Sound(File files)
 	{
+		new JFXPanel();
 		if(files != null)
 		{
 			init = true;
@@ -41,7 +42,6 @@ public class Sound implements Serializable
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			new JFXPanel();
 			clip =new Media(file.toURI().toString());
 			player = new MediaPlayer(clip);
 		}
@@ -66,6 +66,14 @@ public class Sound implements Serializable
 			muted = false;
 		}
 		player.setVolume(vol/100);
+	}
+	
+	public double getVolume()
+	{
+		if(player != null)
+			return (int)player.getVolume()*100;
+		else
+			return Double.NaN;
 	}
 	
 	public void mute()
@@ -99,7 +107,10 @@ public class Sound implements Serializable
 	
 	public void setFile(File files)
 	{
-		player.stop();
+		if(player != null)
+		{
+			player.stop();
+		}
 		file = files;
 		try {
 			image = ImageIO.read(file);

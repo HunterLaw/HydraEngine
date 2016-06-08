@@ -56,17 +56,23 @@ public class Jump implements Serializable
 	
 	public void enable()
 	{
-		enabled = true;
-		completed = false;
-		jumpingspeed = initjumpspeed;
+		if(!enabled)
+		{
+			enabled = true;
+			completed = false;
+			jumpingspeed = initjumpspeed;
+		}
 //		System.out.println("Enabled");
 	}
 	
 	public void disable()
 	{
-		enabled = false;
-		jumpingspeed = 0;
-		completed = true;
+		if(enabled)
+		{
+			enabled = false;
+			jumpingspeed = 0;
+			completed = true;
+		}
 //		System.out.println("Disable");
 	}
 	

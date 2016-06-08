@@ -46,106 +46,51 @@ public class ScrollingMap extends TexturedObject2D{
 	{
 		objects = objectss;
 
-		if(lorr == Direction.right)
+		if(lorr == Direction.right || lorr == Direction.left)
 		{
-				if((x+movespeed)< (width-winwidth) && !charmovex)
-				{
-					charlorr = Direction.none;
-					x += movespeed;
-					chars.setX((winwidth/2)-getWinX()-(chars.getWidth()/2));
-				}
-				else if(chars.getX()+(chars.getWidth()/2) >= (winwidth/2) && charmovex && x == 0)
-				{
-					charmovex = false;
-				}
-				else if((x+movespeed) >= (width-winwidth) && !charmovex)
-				{
-					charlorr = Direction.right;
-					x = (width-winwidth);
-					charmovex = true;
-				}
-				else if(charmovex)
-				{
-					charlorr = Direction.right;
-				}
-			
-		}
-		else if(lorr == Direction.left)
-		{
-			if((x-movespeed) > 0 && !charmovex)
+			int charx = chars.getMidX();
+//			int chary = (int)(chars.getY()+(chars.getHeight()/2));
+//			System.out.println(charx);
+			int winx = (int)x+(winwidth/2);
+//			System.out.println(winx);
+			int difx = charx-winx;
+//			System.out.println("DifX:"+difx);
+			if(x+difx < 0)
 			{
-				charlorr = Direction.none;
-				x -= movespeed;
-				chars.setX((winwidth/2)-getWinX()-(chars.getWidth()/2));
-			}
-			else if((x-movespeed) <= 0 && !charmovex)
-			{
-				charlorr = Direction.left;
-				charmovex = true;
 				x = 0;
 			}
-			else if(chars.getX()+(chars.getWidth()/2) <= width-(winwidth/2) && charmovex && x == (width-winwidth))
+			else if(x+difx+winwidth > width)
 			{
-				charmovex = false;
+				x = width-winwidth;
 			}
-			else if(charmovex)
-			{				
-				charlorr = Direction.left;
+			else
+			{
+				x += difx;
 			}
+//			System.out.println("Y:"+y);
 		}
-		else
+		if(uord == Direction.up || uord == Direction.down)
 		{
-			charlorr = Direction.none;
-		}
-		if(uord == Direction.up)
-		{
-			if((y-movespeed) > 0 && !charmovey)
+//			int difx = (int)(chars.getX()-x);
+			int chary = chars.getMidY();
+//			System.out.println(chary);
+			int winy = (int)y+(winheight/2);
+//			System.out.println(winy);
+			int dify = chary-winy;
+//			System.out.println("Dify:"+dify);
+			if(y+dify < 0)
 			{
-				charuord = Direction.none;
-				y -= movespeed;
-				chars.setY((winheight/2)-getWinY()-(chars.getHeight()/2));
-			}
-			else if((y-movespeed) <= 0 && !charmovey)
-			{
-				charuord = Direction.up;
-				charmovey = true;
 				y = 0;
 			}
-			else if(chars.getY()+(chars.getHeight()/2) <= (height-(winheight/2)) && charmovey && y == (height-winheight))
+			else if(y+dify+winheight > height)
 			{
-				charmovey = false;
-			}
-			else if(charmovey)
-			{				
-				charuord = Direction.up;
-			}
-		}
-		else if(uord == Direction.down)
-		{
-			if((y+movespeed) < (height-winheight) && !charmovey)
-			{
-				charuord = Direction.none;
-				y += movespeed;
-				chars.setY((winheight/2)-getWinY()-(chars.getHeight()/2));
-			}
-			else if((y+movespeed) >= (height-winheight) && !charmovey)
-			{
-				charuord = Direction.down;
-				charmovey = true;
 				y = height-winheight;
 			}
-			else if(chars.getY()+(chars.getHeight()/2) >= (winheight/2) && charmovey && y == 0)
+			else
 			{
-				charmovey = false;
+				y += dify;
 			}
-			else if(charmovey)
-			{				
-				charuord = Direction.down;
-			}
-		}
-		else
-		{
-			charuord = Direction.none;
+//			System.out.println("Y:"+y);
 		}
 	}
 	

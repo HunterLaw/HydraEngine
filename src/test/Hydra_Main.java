@@ -64,6 +64,7 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 		chars = new Character((640/2)-10,(480/2)-10,20,20,true);
 		chars.setColor(Color.red);
 		chars.enable();
+		map.setCharacter(chars);
 		
 		
 		objects.add(chars);
@@ -74,15 +75,16 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 		
 		running = true;
 		panel.setRunMethod(new Hydra_Main());
+		window.pack();
 	}
 	
 	public void update()
 	{
 //		map.setCharCenter(chars);
-		map.update(objects, lorr, uord);
-		map.setCharCenter(chars);
+//		map.setCharCenter(chars);
 //		System.out.println(map.getCharlorr()+":"+map.getCharuord());
-		chars.update(map.getCharlorr(), map.getCharuord());
+		chars.update(lorr,uord);
+		map.update(objects, lorr, uord);
 	}
 	
 	public void render()

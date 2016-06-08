@@ -20,27 +20,26 @@ public class Character extends NonTexturedObject2D{
 		if(lorr == Direction.left)
 		{
 			x -= movespeed;
-			if(x < 0)
-				x = 0;
+//			if(x < 0)
+//				x = 0;
 		}
 		else if(lorr == Direction.right)
 		{
 			x += movespeed;
-			if(x+width > 640)
-				x = 640-width;
+//			if(x+width > 640)
+//				x = 640-width;
 		}
 		
 		if(uord == Direction.up)
 		{
 			y -= movespeed;
-			if(y < 0)
-				y = 0;
+//			if(y < 0)
+//				y = 0;
 		}
 		else if(uord == Direction.down )
 		{
 			y += movespeed;
-			if(y+height > 480)
-				y= 480-height;
+//			S
 		}
 	}
 

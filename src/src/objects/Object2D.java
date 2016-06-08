@@ -161,6 +161,17 @@ public abstract class Object2D implements Serializable
 	{
 		return (int)x;
 	}
+	
+	/**
+	 * getMidX()
+	 * 
+	 * @return Center X point of this object
+	 */
+	public int getMidX()
+	{
+		return (int)(x + (width/2));
+	}
+	
 	/*
 	 * getY()
 	 * 
@@ -170,6 +181,16 @@ public abstract class Object2D implements Serializable
 	{
 		return (int)y;
 	}
+	
+	/**
+	 * getMidY()
+	 * @return Center Y point of this object
+	 */
+	public int getMidY()
+	{
+		return (int)(y + (height/2));
+	}
+	
 	/*
 	 * getWidth()
 	 * 

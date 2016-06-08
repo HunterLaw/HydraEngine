@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -18,14 +19,14 @@ public class SaverLoader implements Serializable
 	static FileInputStream ifile;
 	static ObjectOutputStream oobject;
 	static ObjectInputStream iobject;
-	static File file;
+	static File files;
 	public SaverLoader()
 	{
-		file = new File("save.sav");
-		if(!file.exists())
+		files = new File("save.sav");
+		if(!files.exists())
 		{
 			try {
-				file.createNewFile();
+				files.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -34,10 +35,10 @@ public class SaverLoader implements Serializable
 	
 	public static boolean createFile()
 	{
-		if(!file.exists())
+		if(!files.exists())
 		{
 			try {
-				file.createNewFile();
+				files.createNewFile();
 				return true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -49,22 +50,23 @@ public class SaverLoader implements Serializable
 	
 	public static boolean fileCreated()
 	{
-		return file.exists();
+		return files.exists();
 	}
 	
 	public static boolean save(Serializable ob)
 	{
-		if(file.exists())
+		if(files.exists())
 		{
 			try
 			{
-				ofile = new FileOutputStream(file);
+				ofile = new FileOutputStream(files);
 				oobject = new ObjectOutputStream(ofile);
 				oobject.writeObject(ob);
 				oobject.flush();
 				oobject.close();
 				ofile.close();
 				return true;
+				
 			}catch(IOException e)
 			{
 				e.printStackTrace();
@@ -74,21 +76,20 @@ public class SaverLoader implements Serializable
 		return false;
 	}
 	
-	public Object loadObject()
+	public static Object loadObject()
 	{
 		Object obj = null;
-		if(file.exists())
+		if(files.exists())
 		{
 			try {
-				ifile = new FileInputStream(file);
+				ifile = new FileInputStream(files);
 				iobject = new ObjectInputStream(ifile);
 				obj = iobject.readObject();
 				iobject.close();
 				ifile.close();
 				return obj;
 			} catch (IOException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 		return obj;
