@@ -35,6 +35,13 @@ public class Panel extends JPanel{
 		thread = new Thread(run);
 		thread.start();
 	}
+	
+	public void setRunMethod(Runnable run,String name)
+	{
+		thread = new Thread(run);
+		thread.setName(name);
+		thread.start();
+	}
 	/*
 	 * resize()
 	 * 

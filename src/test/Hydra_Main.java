@@ -19,7 +19,11 @@ import src.UI.ScrollingMap;
 import src.UI.Window;
 import src.media.Sound;
 import src.movement.Direction;
+import src.objects.Grid;
 import src.objects.NonTexturedObject2D;
+import src.objects.Wall;
+import src.paths.Node;
+import src.paths.PathFinder;
 
 public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 {
@@ -32,6 +36,7 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	int updated = 0;
 	FPS fps = new FPS();
 	static Character chars;
+	static Enemy enemy;
 	static Direction lorr = Direction.none;
 	static Direction uord = Direction.none;
 	File loc = new File("src/media/song.wav");
@@ -42,14 +47,26 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	static Minimap mini;
 	static ScrollingMap map;
 	static final int minimapsize = 96;
-	
+	static Level lv;
+	static Wall[][] maps;
 	static ArrayList<NonTexturedObject2D> objects;
+	static PathFinder pf = new PathFinder();
+	static Grid grid;
+	static boolean gpath = false;
 	public static void main(String[] args)
 	{
 		GUI();
+		try{
+			
+			pf.start();
+		}catch(Exception e)
+		{
+			System.out.println("caught");
+		}
 	}
 	public static void GUI()
 	{
+		
 		objects = new ArrayList<NonTexturedObject2D>();
 		map = new ScrollingMap(0,0,640*2,480*2,640,480);
 		map.loadBasicImage(bgs);
@@ -64,18 +81,56 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 		chars = new Character((640/2)-10,(480/2)-10,20,20,true);
 		chars.setColor(Color.red);
 		chars.enable();
+		enemy = new Enemy(0,0,32,32,true);
+		enemy.setColor(Color.orange);
+		enemy.enable();
+		objects.add(enemy);
 		map.setCharacter(chars);
 		
+		grid = new Grid(0,0,1280,960,false);
+		grid.setColor(Color.black);
+		grid.setGridSize(32);
+		grid.enable();
+		objects.add(grid);
 		
+		maps = new Wall[Level.lv.length][Level.lv[0].length];
+		pf.setMap(maps);
+		pf.setNodeSize(32);
+		for(int y =0;y<30;y++)
+		{
+			for(int x = 0;x<40;x++)
+			{
+				if(Level.lv[y][x] == 1 || Level.lv[y][x] == 2 || Level.lv[y][x] == 3)
+				{
+					maps[y][x] = new Wall(x*32,y*32,32,32,true);
+					if(Level.lv[y][x] == 2)
+					{
+						maps[y][x].setColor(Color.green);
+						pf.setStartNode(x*32, y*32);
+					}
+					else if(Level.lv[y][x] == 3)
+					{
+						maps[y][x].setColor(Color.red);
+						pf.setEndNode(x*32, y*32);
+					}
+					maps[y][x].enable();
+					objects.add(maps[y][x]);
+				}
+			}
+		}
+	
 		objects.add(chars);
 		renderer.setObjectArray(objects);
 		renderer.setMinimap(mini);
 		renderer.setBgObject(map, map.getWidth(), map.getHeight());
 //		renderer.setBgObject(bg,bg.getWidth(),bg.getHeight());
 		
+		
 		running = true;
-		panel.setRunMethod(new Hydra_Main());
+		panel.setRunMethod(new Hydra_Main(),"Game Loop");
 		window.pack();
+		
+		
 	}
 	
 	public void update()
@@ -85,6 +140,23 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 //		System.out.println(map.getCharlorr()+":"+map.getCharuord());
 		chars.update(lorr,uord);
 		map.update(objects, lorr, uord);
+		for(Node i:pf.getOpenedClosed())
+		{
+			if(!objects.contains(i))
+			{
+				objects.add(i);
+			}
+		}
+		if(pf.isPathFound() && !gpath)
+		{
+			System.out.println("here");
+			gpath = true;
+			enemy.setNodeList(pf.getPath());
+		}
+		objects.remove(enemy);
+		objects.add(enemy);
+		enemy.update();
+		renderer.setObjectArray(objects);
 	}
 	
 	public void render()
