@@ -5,6 +5,10 @@ import java.awt.image.BufferedImage;
 
 public class Grid extends TexturedObject2D{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2008728258300255163L;
 	int gsize;
 	public Grid(double xs, double ys, int widths, int heights, boolean filled) {
 		super(xs, ys, widths, heights, filled);

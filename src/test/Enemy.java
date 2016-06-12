@@ -3,7 +3,6 @@ package test;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import src.movement.Direction;
 import src.objects.NonTexturedObject2D;
 import src.paths.Node;
 

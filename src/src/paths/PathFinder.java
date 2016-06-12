@@ -1,11 +1,8 @@
 package src.paths;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import src.objects.Object2D;
 import src.objects.Wall;
@@ -78,6 +75,7 @@ public class PathFinder extends Thread implements Serializable{
 		return -1;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Node getCurrentNode()
 	{
 		ArrayList<Node> lowest = new ArrayList<Node>();
@@ -267,7 +265,6 @@ public class PathFinder extends Thread implements Serializable{
 
 		}
 		long time = System.currentTimeMillis()-startt;
-		double sec = time / 1000000000;
 		System.out.println("Time: "+time);
 	}
 	

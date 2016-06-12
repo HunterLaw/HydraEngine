@@ -4,6 +4,10 @@ import src.objects.NonTexturedObject2D;
 
 public class Node extends NonTexturedObject2D
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5746483242817317948L;
 	static Node start = null,end = null;
 	Node hn = null;
 	static int nsize =0;

@@ -17,7 +17,6 @@ public class ScrollingMap extends TexturedObject2D{
 	Direction uord = Direction.none;
 	private int winwidth;
 	private int winheight;
-	private int movespeed = 5;
 	private int offset = 5;
 	private Direction charlorr = Direction.none;
 	private Direction charuord = Direction.none;
@@ -29,7 +28,6 @@ public class ScrollingMap extends TexturedObject2D{
 		super(xs, ys, widths, heights, false);
 		winwidth = winwidths;
 		winheight = winheights;
-		movespeed = movespeeds;
 	}
 	public ScrollingMap(int xs, int ys, int widths, int heights, int winwidths, int winheights) {
 		super(xs, ys, widths, heights, false);
