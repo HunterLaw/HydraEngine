@@ -128,6 +128,7 @@ public class HealthBar2D extends TexturedObject2D
 	 * 
 	 * returns the x coord of the HealthBar2D
 	 */
+	@Override
 	public int getX()
 	{
 		return x;
@@ -137,6 +138,7 @@ public class HealthBar2D extends TexturedObject2D
 	 * 
 	 * returns the y coord of the HealthBar2D
 	 */
+	@Override
 	public int getY()
 	{
 		return y;

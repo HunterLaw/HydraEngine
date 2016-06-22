@@ -28,8 +28,8 @@ public class Node extends NonTexturedObject2D
 		}
 		else
 		{
-			this.tx = (int)(x/nsize);
-			this.ty = (int)(y/nsize);
+			this.tx = x/nsize;
+			this.ty = y/nsize;
 			this.x = x;
 			this.y = y;
 		}

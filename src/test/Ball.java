@@ -39,6 +39,7 @@ public class Ball extends TexturedObject2D
 		anim.addImage(image2);
 	}
 	
+	@Override
 	public void update()
 	{
 //		gravity.enable();

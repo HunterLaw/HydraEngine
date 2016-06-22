@@ -38,9 +38,8 @@ public class Panel extends JPanel{
 	
 	public void setRunMethod(Runnable run,String name)
 	{
-		thread = new Thread(run);
+		setRunMethod(run);
 		thread.setName(name);
-		thread.start();
 	}
 	/*
 	 * resize()
@@ -48,6 +47,7 @@ public class Panel extends JPanel{
 	 * Sets the panel to be a new size
 	 * WARNING: This is not accounted for in the engine yet
 	 */
+	@Override
 	public void resize(int widths,int heights)
 	{
 		size = new Dimension(widths,heights);
@@ -57,6 +57,7 @@ public class Panel extends JPanel{
 	 * 
 	 * returns the size of the Panel
 	 */
+	@Override
 	public Dimension getSize()
 	{
 		return size;
@@ -66,6 +67,7 @@ public class Panel extends JPanel{
 	 * 
 	 * returns the width of the Panel
 	 */
+	@Override
 	public int getWidth()
 	{
 		return size.width;
@@ -75,6 +77,7 @@ public class Panel extends JPanel{
 	 * 
 	 * returns the height of the Panel
 	 */
+	@Override
 	public int getHeight()
 	{
 		return size.height;

@@ -61,7 +61,7 @@ public class Renderer2D implements Serializable{
 	{
 		if(object instanceof BufferedImage)
 		{
-			bg = (BufferedImage) object;
+			bg = object;
 			bgwidth = widths;
 			bgheight = heights;
 		}

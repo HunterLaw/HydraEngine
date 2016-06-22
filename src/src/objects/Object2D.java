@@ -26,7 +26,7 @@ public abstract class Object2D implements Serializable
 	
 	protected int width,height;
 	
-	protected boolean enabled = false;
+	protected boolean enabled = true;
 	
 	/*
 	 * Constructor sets the basic information about the object

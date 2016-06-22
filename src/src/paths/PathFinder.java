@@ -66,7 +66,7 @@ public class PathFinder extends Thread implements Serializable{
 	{
 		if(nsize != 0)
 		{
-			return (int)(x/nsize);		
+			return x/nsize;		
 		}
 		else
 		{
