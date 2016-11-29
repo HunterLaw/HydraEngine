@@ -1,12 +1,11 @@
 package src.objects;
 
-public class Wall extends NonTexturedObject2D{
+public class Wall extends TexturedObject2D{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7456306774113145109L;
-
 	public Wall(double xs, double ys, int width, int height, boolean filleds) {
 		super(xs, ys, width, height, filleds);
 	}

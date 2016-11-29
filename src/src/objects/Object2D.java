@@ -239,4 +239,9 @@ public abstract class Object2D implements Serializable
 		createRect();
 		return rect;
 	}
+	
+	public String toString()
+	{
+		return "X: "+x+"/Y:"+y;
+	}
 }

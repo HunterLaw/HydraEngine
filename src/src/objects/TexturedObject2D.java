@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -58,6 +59,7 @@ public abstract class TexturedObject2D extends NonTexturedObject2D {
 			e.printStackTrace();
 		}
 	}
+	
 	/*
 	 * loadTiledImage()
 	 * 

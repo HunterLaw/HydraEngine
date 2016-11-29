@@ -38,7 +38,7 @@ public class Minimap extends TexturedObject2D{
 		Graphics2D g = (Graphics2D) temp.getGraphics();
 		g.setColor(bordercolor);
 		g.fillRect(0,0,width,height);
-		g.drawImage(map, borderwidth, borderheight, (width-(borderwidth*2)), (height-(borderheight*2)), null);
+		g.drawImage(map.getScaledInstance((width-(borderwidth*2)), (height-(borderheight*2)), BufferedImage.SCALE_FAST), borderwidth, borderheight, null);
 		g.dispose();
 		texture = temp;
 	}

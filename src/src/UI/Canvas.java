@@ -2,6 +2,8 @@ package src.UI;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Canvas extends java.awt.Canvas
 {
@@ -13,20 +15,38 @@ public class Canvas extends java.awt.Canvas
 
 	private Thread thread;
 	private Dimension size;
+	private BufferStrategy bs;
+	private int x,y;
+	private BufferedImage img;
 	
 	public Canvas(Dimension sizes)
 	{
 		size = sizes;
-		setPreferredSize(sizes);
-
+		setPreferredSize(size);
+		setSize(size);
+		setLocation(0,0);
+		System.out.println("init");
+//		createBufferStrategy();
+//		System.exit(0);
+//		this.
 	}
 	
 	public void createBufferStrategy()
 	{
-		if(getBufferStrategy() == null)
+//		this.addNotify();
+		System.out.println("Canvas "+this.isDisplayable());
+		if(bs == null)
 		{
-			this.createBufferStrategy(3);
+			createBufferStrategy(3);
 		}
+		else
+		{
+			return;
+		}
+		bs = getBufferStrategy();
+//		System.out.println(bs);
+		
+//		System.out.println(bs);
 	}
 	
 	public void setRunMethod(Runnable run)
@@ -46,9 +66,34 @@ public class Canvas extends java.awt.Canvas
 		size = new Dimension(width,height);
 	}
 	
-	public void show()
+	public void showBuffer()
 	{
-		this.getBufferStrategy().show();
+		if(bs != null)
+		{
+			bs.show();
+		}
+		else
+		{
+			System.out.println("Buffer null");
+		}
+	}
+	
+	public void draw(int xs,int ys,BufferedImage image)
+	{
+		x = xs;
+		y = ys;
+		img = image;
+	}
+	@Override
+	public void paint(Graphics g)
+	{
+//		g.drawImage(img, x, y, null);
+	}
+	
+	@Override
+	public Dimension getPreferredSize()
+	{
+		return size;
 	}
 	
 	public Dimension getSize()
@@ -66,12 +111,13 @@ public class Canvas extends java.awt.Canvas
 		return size.height;
 	}
 	
-	public Graphics getGraphics()
+	public Graphics getBufferGraphics()
 	{
-		if(getBufferStrategy() == null)
+		if(bs == null)
 		{
 			return null;
 		}
-		return this.getBufferStrategy().getDrawGraphics();
+		return bs.getDrawGraphics();
 	}
+
 }

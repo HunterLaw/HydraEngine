@@ -2,18 +2,22 @@ package test;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
+import src.UI.Canvas;
+//import src.UI.Canvas;
 import src.UI.FPS;
 import src.UI.Minimap;
-import src.UI.Panel;
 import src.UI.Renderer2D;
 import src.UI.ScrollingMap;
 import src.UI.Window;
@@ -28,7 +32,7 @@ import src.paths.PathFinder;
 public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 {
 	static Window window;
-	static Panel panel;
+	static Canvas panel;
 	static Renderer2D renderer = new Renderer2D(640*2,480*2,BufferedImage.TYPE_INT_RGB);
 	BufferedImage image;
 	static boolean running = false;
@@ -39,10 +43,10 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	static Enemy enemy;
 	static Direction lorr = Direction.none;
 	static Direction uord = Direction.none;
-	File loc = new File("src/media/song.wav");
-	Sound sound = new Sound(loc);
+	File loc = new File("media/song.wav");
+	Sound sound;
 	boolean playmusic = false;
-	static File bgs = new File("src/media/TestScrolling.png");
+	static BufferedImage bgs;
 	static BufferedImage bg;
 	static Minimap mini;
 	static ScrollingMap map;
@@ -53,27 +57,47 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	static PathFinder pf = new PathFinder();
 	static Grid grid;
 	static boolean gpath = false;
+	static Hydra_Main instance;
+//	static BufferStrategy bs;
+	
+	public Hydra_Main()
+	{
+		instance = this;
+		try
+		{
+			bgs = ImageIO.read(getClass().getClassLoader().getResourceAsStream("TestScrolling.png"));
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args)
 	{
+		new Hydra_Main();
 		GUI();
-		try{
-			
-			pf.start();
-		}catch(Exception e)
-		{
-			System.out.println("caught");
-		}
+//		try{
+//			
+//			pf.start();
+//		}catch(Exception e)
+//		{
+//			System.out.println("caught");
+//		}
 	}
 	public static void GUI()
 	{
 		
 		objects = new ArrayList<NonTexturedObject2D>();
 		map = new ScrollingMap(0,0,640*2,480*2,640,480);
-		map.loadBasicImage(bgs);
+		map.setImage(bgs);
 		map.enable();
-		panel = new Panel(new Dimension(640,480));
+		panel = new Canvas(new Dimension(640,480));
 		window = new Window(panel,"Test");
-		window.addKeyListener(new Hydra_Main());
+//		panel.createBufferStrategy(3);
+//		panel.createBufferStrategy();
+		window.addKeyListener(instance);
 		//window.addComponentListener(new Hydra_Main());
 		mini = new Minimap((640-minimapsize),(480-minimapsize),minimapsize,minimapsize);
 		mini.setBorder(1, 1, Color.green);
@@ -127,9 +151,9 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 		
 		
 		running = true;
-		panel.setRunMethod(new Hydra_Main(),"Game Loop");
+//		new Thread(instance).start();
+		panel.setRunMethod(instance,"Game Loop");
 		window.pack();
-		
 		
 	}
 	
@@ -161,26 +185,35 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 	
 	public void render()
 	{
+		image = new BufferedImage(640*2,480*2,BufferedImage.TYPE_INT_ARGB);
 		image = renderer.render();
 	}
 	
 	public void draw()
 	{
-		Graphics2D g = (Graphics2D)panel.getGraphics();
+//		System.out.println("here");
+//		panel.draw(map.getWinX(), map.getWinY(), image);
+//		System.out.println("here");
+		Graphics g = panel.getBufferGraphics();
 		if(g !=null)
 		{
+//			System.out.println("here");
 //			System.out.println(map.getX());
 			g.drawImage(image, map.getWinX(),map.getWinY(), null);
-			g.setColor(Color.cyan);
-			g.drawLine(320, 0, 320, 480);
-			g.drawLine(0,240,640,240);
+//			g.clearRect(0, 0, panel.getWidth(), panel.getHeight());
+//			g.setColor(Color.cyan);
+//			g.drawLine(320, 0, 320, 480);
+//			g.drawLine(0,240,640,240);
 			g.dispose();
+			panel.showBuffer();
+
 		}
 	}
 	
 	@Override
 	public void run()
 	{
+		System.out.println("here");
 		if(playmusic)
 			sound.playSound();
 		while(running)
@@ -226,8 +259,8 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 
 		@Override
 		public void componentResized(ComponentEvent e) {
-			panel.resize(window.getWidth()-22, window.getHeight()-56);
-			renderer.resize(window.getWidth()-22, window.getHeight()-56);
+//			panel.resize(window.getWidth()-22, window.getHeight()-56);
+//			renderer.resize(window.getWidth()-22, window.getHeight()-56);
 		}
 		@Override
 		public void keyPressed(KeyEvent arg0) {
@@ -251,6 +284,7 @@ public class Hydra_Main implements Runnable, ComponentListener, KeyListener
 		@Override
 		public void keyReleased(KeyEvent arg0) {
 			int key = arg0.getKeyCode();
+//			System.out.println("here");
 			switch(key)
 			{
 			case KeyEvent.VK_LEFT:

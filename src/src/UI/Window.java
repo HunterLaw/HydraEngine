@@ -21,27 +21,49 @@ public class Window extends JFrame{
 	{
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+	//	setResizable(false);
 		add(panel);
 		pack();
 		setLocationRelativeTo(null);
-		setVisible(true);	
-		pack();
+		setVisible(true);
+		setLayout(null);
 	}
 	
 	public Window(JPanel panel,JPanel panel2,String title)
 	{
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	setResizable(false);
 		add(panel);
 		add(panel2);
-		setResizable(false);
 		pack();
 		setLocationRelativeTo(null);
-		setVisible(true);	
+		setVisible(true);
 		setLayout(null);
-		pack();
 	}
+	
+	public Window(Canvas can, String title)
+	{
+//		Panel panel = new Panel(can.getSize());
+////		panel.setSize(can.getSize());
+//		panel.add(can);
+//		setLayout(null);
+		setTitle(title);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setMinimumSize(can.getSize());
+//		add(can);
+//		setResizable(false);
+		add(can);
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);
+		can.createBufferStrategy();
+//		System.out.println(isDoubleBuffered());
+//		System.out.println(isDisplayable());
+//		pack();
+//		baseSetup(title);
+	}
+	
 	/*
 	 * centerFrame()
 	 * 

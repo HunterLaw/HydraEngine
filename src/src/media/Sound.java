@@ -31,20 +31,25 @@ public class Sound implements Serializable
 	 */
 	public Sound(File files)
 	{
-		new JFXPanel();
-		if(files != null)
+		if(files != null && clip == null)
 		{
+			new JFXPanel();
+			System.out.println("here");
 			init = true;
 			file = files;
-			try {
-				image = ImageIO.read(file);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				image = ImageIO.read(file);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			clip =new Media(file.toURI().toString());
 			player = new MediaPlayer(clip);
 		}
+//		else
+//		{
+//			new JFXPanel();
+//		}
 	}
 	
 	public void setVolume(double vol)

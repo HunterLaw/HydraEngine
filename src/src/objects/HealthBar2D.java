@@ -45,6 +45,7 @@ public class HealthBar2D extends TexturedObject2D
 	 */
 	public void update(int xs,int ys,double currenthealth)
 	{
+//		System.out.println("health");
 		x = xs;
 		y = ys+yoffset;
 		if(currenthealth > 0.0)
